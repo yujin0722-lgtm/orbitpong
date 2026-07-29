@@ -106,10 +106,7 @@ https://orbitpong.su-udon.com
 
 ### `src/main.tsx`、`index.html`
 
-`src/main.tsx`と`src/index.html`は静的Vite版のブラウザーエントリーポイントと
-HTMLメタデータ。リポジトリ直下の`index.html`と`assets/`は、GitHub Pagesが
-branch/root公開に設定されていても動作するビルド済みフォールバックである。
-ソース変更後は`npm run build:pages`でフォールバックも更新する。
+静的Vite版のブラウザーエントリーポイントとHTMLメタデータ。
 
 ### `vite.config.ts`
 
