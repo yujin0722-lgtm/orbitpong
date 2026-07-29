@@ -104,19 +104,22 @@ https://orbitpong.su-udon.com
 - 難易度ボタン
 - スマートフォン／低い画面向けレスポンシブ対応
 
-### `app/layout.tsx`
+### `src/main.tsx`、`index.html`
 
-Next.jsのルートレイアウトとメタデータ。
+`src/main.tsx`と`src/index.html`は静的Vite版のブラウザーエントリーポイントと
+HTMLメタデータ。リポジトリ直下の`index.html`と`assets/`は、GitHub Pagesが
+branch/root公開に設定されていても動作するビルド済みフォールバックである。
+ソース変更後は`npm run build:pages`でフォールバックも更新する。
 
-### `vite.config.ts`、`worker/index.ts`
+### `vite.config.ts`
 
-VinextとCloudflare Worker互換ビルドの設定。ゲーム調整だけなら通常は変更不要。
+GitHub PagesのプロジェクトURLでも動くよう、アセットを相対パスで出力する設定。
+ゲーム調整だけなら通常は変更不要。
 
-### `.openai/hosting.json`
+### `.github/workflows/deploy-pages.yml`
 
-GitHub書き出し版では`project_id`を空にしてあり、公開中サイトへ誤って紐付かない
-ようにしている。新しいChatGPT Siteとして利用する場合は、Sitesの正式な作成手順で
-新しいIDを設定すること。架空のIDを手入力しない。
+ブランチへのpush時にテスト、ビルド、GitHub Pagesへの公開を行う。公開修正を
+PRブランチでも確認できるよう、ブランチ名は限定していない。
 
 ---
 
@@ -293,17 +296,12 @@ npm run build
 
 このリポジトリはGitHubでの履歴管理や他AIへの受け渡しに利用できる。
 
-現在の構成はChatGPT Sites／Vinext／Cloudflare Worker向けであり、GitHub Pagesへ
-そのまま配置するだけでは動作しない。
+現在の構成は静的なVite React版であり、GitHub Pagesへ公開できる。GitHubのSettingsで
+PagesのSourceをGitHub Actionsに設定し、`main`ブランチへpushすると同梱のワークフローが
+`dist`を自動公開する。別の静的ホスティングでも`npm run build`後の`dist`を利用できる。
 
-### 選択肢
-
-1. **GitHubはソース保管に使い、公開は現在のChatGPT Sitesを継続する**
-2. **Cloudflare互換環境へデプロイする**
-3. **GitHub Pages用に静的なVite ReactまたはHTML版へ移植する**
-
-静的版へ移植するときも、`app/page.tsx`のゲームロジックと
-`app/globals.css`の見た目を基準にし、挙動を勝手に再設計しないこと。
+ゲームロジックは`app/page.tsx`、見た目は`app/globals.css`を基準とし、公開方法の変更時にも
+挙動を勝手に再設計しないこと。
 
 ---
 
