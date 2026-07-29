@@ -118,8 +118,8 @@ GitHub PagesのプロジェクトURLでも動くよう、アセットを相対�
 
 ### `.github/workflows/deploy-pages.yml`
 
-ブランチへのpush時にテスト、ビルド、GitHub Pagesへの公開を行う。公開修正を
-PRブランチでも確認できるよう、ブランチ名は限定していない。
+Pull Requestではテストだけを行い、`main`ブランチへのpush時だけGitHub Pagesへ
+公開する。PRブランチから本番環境を更新してデプロイ同士を競合させないこと。
 
 ---
 

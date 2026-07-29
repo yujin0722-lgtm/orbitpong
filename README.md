@@ -38,7 +38,7 @@ npm run preview
 
 1. このリポジトリをGitHubへpushします。
 2. GitHubの **Settings → Pages → Build and deployment** で **Source** を **GitHub Actions** にします。
-3. ブランチへpushすると、[デプロイワークフロー](./.github/workflows/deploy-pages.yml)がビルドとテストを行い、`dist`をGitHub Pagesへ公開します。公開修正をPRブランチ上でも確認できるよう、ブランチ名は限定していません。
+3. Pull Requestではテストだけを実行します。マージ後、`main`ブランチへのpushで[デプロイワークフロー](./.github/workflows/deploy-pages.yml)が`dist`をGitHub Pagesへ公開します。PRブランチから本番環境へデプロイしないため、複数PR間のPagesデプロイ競合を防げます。
 
 ViteのアセットURLは相対パスにしているため、ユーザーサイトとプロジェクトサイトのどちらでも動作します。手作業で公開する場合は、`npm run build`後の`dist`フォルダーを静的ホスティングへ配置してください。
 
