@@ -38,15 +38,25 @@ npm run preview
 
 1. このリポジトリをGitHubへpushします。
 2. GitHubの **Settings → Pages → Build and deployment** で **Source** を **GitHub Actions** にします。
-3. `main`ブランチへpushすると、[デプロイワークフロー](./.github/workflows/deploy-pages.yml)がビルドとテストを行い、`dist`をGitHub Pagesへ公開します。
+3. Pull Requestではテストだけを実行します。マージ後、`main`ブランチへのpushで[デプロイワークフロー](./.github/workflows/deploy-pages.yml)が`dist`をGitHub Pagesへ公開します。PRブランチから本番環境へデプロイしないため、複数PR間のPagesデプロイ競合を防げます。
 
 ViteのアセットURLは相対パスにしているため、ユーザーサイトとプロジェクトサイトのどちらでも動作します。手作業で公開する場合は、`npm run build`後の`dist`フォルダーを静的ホスティングへ配置してください。
+
+GitHub PagesのSourceが **Deploy from a branch / root** のままでも空白画面に
+ならないよう、リポジトリ直下にはビルド済みのフォールバック版も含めています。
+ゲームを修正した場合は、次のコマンドでフォールバック版を更新してください。
+
+```bash
+npm run build:pages
+```
 
 ## 構成
 
 - `app/page.tsx` — ゲーム状態、Canvas描画、物理、CPU、入力、UI
 - `app/globals.css` — 筐体デザインとレスポンシブ表示
 - `src/main.tsx` — Reactのブラウザーエントリーポイント
+- `src/index.html` — 編集用HTMLテンプレート
+- `index.html`、`assets/` — branch/root公開用のビルド済みフォールバック
 - `public/favicon.svg` — ファビコン
 - `.github/workflows/deploy-pages.yml` — GitHub Pagesへの自動公開
 - `tests/rendered-html.test.mjs` — 静的成果物の検証

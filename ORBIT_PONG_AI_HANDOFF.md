@@ -106,7 +106,10 @@ https://orbitpong.su-udon.com
 
 ### `src/main.tsx`、`index.html`
 
-静的Vite版のブラウザーエントリーポイントとHTMLメタデータ。
+`src/main.tsx`と`src/index.html`は静的Vite版のブラウザーエントリーポイントと
+HTMLメタデータ。リポジトリ直下の`index.html`と`assets/`は、GitHub Pagesが
+branch/root公開に設定されていても動作するビルド済みフォールバックである。
+ソース変更後は`npm run build:pages`でフォールバックも更新する。
 
 ### `vite.config.ts`
 
@@ -115,7 +118,8 @@ GitHub PagesのプロジェクトURLでも動くよう、アセットを相対�
 
 ### `.github/workflows/deploy-pages.yml`
 
-`main`ブランチへのpush時にテスト、ビルド、GitHub Pagesへの公開を行う。
+Pull Requestではテストだけを行い、`main`ブランチへのpush時だけGitHub Pagesへ
+公開する。PRブランチから本番環境を更新してデプロイ同士を競合させないこと。
 
 ---
 
